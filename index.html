@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Battery Chemist — Home energy & batteries, explained honestly</title>
+<meta name="description" content="How batteries, solar and home energy actually work — the real chemistry, the real wiring, and whether it's worth the money. Independent energy-storage expertise by Tommi Luostarinen." />
+<style>
+  :root{
+    --ink:#0b231a; --forest:#123c2b; --green:#16794f; --green-lite:#e7f3ec;
+    --spark:#f5b301; --spark-dk:#d99a00; --paper:#f7faf8; --card:#ffffff;
+    --text:#182720; --muted:#5c6b63; --line:#dbe6df;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--text);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{line-height:1.15;letter-spacing:-0.02em}
+  .accent{color:var(--spark)}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(11,35,26,.92);backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.08)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:9px;color:#fff;font-weight:800;font-size:1.05rem;letter-spacing:-0.01em}
+  .brand .bolt{color:var(--spark)}
+  .navlinks{display:flex;gap:26px;align-items:center}
+  .navlinks a{color:#cfe0d7;font-size:.93rem;font-weight:500}
+  .navlinks a:hover{color:#fff}
+  .navlinks .btn-sm{background:var(--spark);color:#1a1200;padding:8px 15px;border-radius:8px;font-weight:700}
+  .navlinks .btn-sm:hover{background:var(--spark-dk);color:#1a1200}
+  .menu-toggle{display:none}
+  @media(max-width:760px){.navlinks a:not(.btn-sm){display:none}}
+
+  /* HERO */
+  header.hero{background:radial-gradient(1200px 600px at 75% -10%,#1c5238 0%,var(--ink) 55%);color:#fff;
+              padding:76px 0 64px;position:relative;overflow:hidden}
+  .hero .eyebrow{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+                 color:var(--spark);background:rgba(245,179,1,.12);border:1px solid rgba(245,179,1,.3);
+                 padding:6px 12px;border-radius:100px;margin-bottom:22px}
+  .hero h1{font-size:3rem;font-weight:800;max-width:15ch;margin-bottom:20px}
+  .hero p.lead{font-size:1.22rem;color:#d3e3da;max-width:52ch;margin-bottom:14px}
+  .hero p.sub{font-size:1rem;color:#9fb6ab;max-width:54ch;margin-bottom:30px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:14px 24px;border-radius:10px;font-weight:700;font-size:1rem;transition:.15s;cursor:pointer;border:none}
+  .btn-spark{background:var(--spark);color:#1a1200}
+  .btn-spark:hover{background:var(--spark-dk);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+  .creds{display:flex;gap:10px;flex-wrap:wrap;margin-top:40px}
+  .creds span{font-size:.82rem;color:#bcccc3;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+              padding:7px 13px;border-radius:8px}
+  .hero-bolt{position:absolute;right:-40px;bottom:-60px;font-size:20rem;opacity:.05;pointer-events:none;transform:rotate(12deg)}
+  @media(max-width:760px){.hero h1{font-size:2.1rem}.hero p.lead{font-size:1.08rem}}
+
+  /* SECTIONS */
+  section{padding:66px 0}
+  .kicker{font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  h2.title{font-size:2rem;font-weight:800;margin-bottom:16px;max-width:22ch}
+  .lead-p{font-size:1.1rem;color:var(--muted);max-width:60ch}
+
+  /* WHAT I DO cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:34px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .card .ic{font-size:1.6rem;margin-bottom:10px}
+  .card h3{font-size:1.08rem;margin-bottom:7px}
+  .card p{color:var(--muted);font-size:.95rem}
+
+  /* ABOUT */
+  .about{background:var(--green-lite)}
+  .about .flex{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
+  .about p{color:#33463c;margin-bottom:14px;font-size:1.03rem}
+  .about .facts{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+  .about .facts h4{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+  .about .facts li{list-style:none;padding:9px 0;border-bottom:1px solid var(--line);font-size:.95rem;display:flex;gap:9px}
+  .about .facts li:last-child{border-bottom:none}
+  .about .facts li b{color:var(--text)}
+  .linkedin-note{margin-top:14px;font-size:.9rem;color:var(--muted)}
+  @media(max-width:760px){.about .flex{grid-template-columns:1fr}}
+
+  /* LEAD MAGNET */
+  .magnet{background:var(--forest);color:#fff}
+  .magnet .box{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+  .magnet h2{font-size:1.9rem;font-weight:800;margin-bottom:14px}
+  .magnet p{color:#c7d9ce;margin-bottom:10px}
+  .magnet ul{margin:16px 0 0;padding-left:0;list-style:none}
+  .magnet ul li{padding:6px 0;color:#dcebe3;display:flex;gap:10px;font-size:.97rem}
+  .magnet ul li::before{content:"✓";color:var(--spark);font-weight:800}
+  .form-card{background:#fff;border-radius:16px;padding:28px;color:var(--text)}
+  .form-card h3{font-size:1.15rem;margin-bottom:6px}
+  .form-card p.small{color:var(--muted);font-size:.9rem;margin-bottom:16px}
+  .form-card input{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:1rem;margin-bottom:12px;font-family:inherit}
+  .form-card input:focus{outline:none;border-color:var(--green)}
+  .form-card button{width:100%}
+  .form-note{font-size:.78rem;color:var(--muted);margin-top:12px;text-align:center}
+  #formMsg{display:none;background:var(--green-lite);border:1px solid var(--green);color:#0e5c3a;
+           padding:12px;border-radius:10px;font-size:.92rem;margin-top:6px}
+  @media(max-width:760px){.magnet .box{grid-template-columns:1fr}}
+
+  /* WORK WITH ME */
+  .work h2.title{max-width:26ch}
+  .work .who{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--spark);
+             border-radius:12px;padding:20px 22px;margin-top:26px}
+  .work .who b{color:var(--text)}
+  .svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:30px}
+  .svc .card h3{display:flex;align-items:center;gap:9px}
+  .engage{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+  .engage .pill{background:var(--green-lite);border:1px solid var(--line);border-radius:10px;padding:14px 18px;flex:1;min-width:180px}
+  .engage .pill b{display:block;color:var(--green);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+  .work-cta{background:var(--ink);color:#fff;border-radius:16px;padding:34px;margin-top:38px;text-align:center}
+  .work-cta h3{font-size:1.5rem;margin-bottom:10px}
+  .work-cta p{color:#b9cabf;max-width:52ch;margin:0 auto 22px}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:#9fb6ab;padding:40px 0;border-top:1px solid rgba(255,255,255,.08)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer .brand{font-size:1rem}
+  footer a{color:#cfe0d7;font-size:.92rem;margin-left:18px}
+  footer a:hover{color:#fff}
+  .disclaim{font-size:.8rem;color:#6f857a;margin-top:14px;max-width:70ch}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="bolt">🔋</span> Battery Chemist</a>
+    <div class="navlinks">
+      <a href="#what">What I do</a>
+      <a href="#tool">Free tool</a>
+      <a href="#work">Work with me</a>
+      <a href="#work" class="btn-sm">Hire me</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Energy storage · Chemistry · Automation</span>
+    <h1>Home energy &amp; batteries, explained <span class="accent">honestly</span>.</h1>
+    <p class="lead">The real chemistry, the real wiring, and the honest math on whether it's worth your money.</p>
+    <p class="sub">No hype, no sales pitch — just the truth from someone who installs the systems and understands what's happening inside the cell.</p>
+    <div class="cta-row">
+      <a href="#tool" class="btn btn-spark">Get the free battery calculator</a>
+      <a href="#work" class="btn btn-ghost">Work with me →</a>
+    </div>
+    <div class="creds">
+      <span>⚡ Licensed electrician</span>
+      <span>🔬 Chemistry MSc (Aalto)</span>
+      <span>🤖 Automation specialist</span>
+      <span>🏭 15+ years in energy</span>
+    </div>
+  </div>
+  <div class="hero-bolt">⚡</div>
+</header>
+
+<!-- WHAT I DO -->
+<section id="what">
+  <div class="wrap">
+    <div class="kicker">What this is</div>
+    <h2 class="title">The stuff no salesman will explain</h2>
+    <p class="lead-p">Home batteries, solar and EVs are huge decisions drowning in hype. I break down how they actually work and whether they actually pay off — clearly enough for anyone, deep enough to be true.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ic">🔬</div>
+        <h3>How it really works</h3>
+        <p>The chemistry made visceral — why LFP is safe, why cold cuts range, why fast-charging degrades a cell.</p>
+      </div>
+      <div class="card">
+        <div class="ic">💶</div>
+        <h3>Is it worth it?</h3>
+        <p>The honest money math on batteries, solar and EVs — payback, ROI, and when it simply doesn't add up.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔧</div>
+        <h3>Watch me do it</h3>
+        <p>Real installs, automation setups and teardowns — proof from someone who does this for a living.</p>
+      </div>
+      <div class="card">
+        <div class="ic">⚡</div>
+        <h3>Smart energy</h3>
+        <p>Automating batteries and EV charging around cheap spot-price hours so your system pays for itself faster.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="wrap">
+    <div class="flex">
+      <div>
+        <div class="kicker">Who's behind it</div>
+        <h2 class="title">Tommi Luostarinen</h2>
+        <p>I've spent 15+ years at the intersection of energy, automation and smart infrastructure — as a founder, a CTO, and a licensed electrician who still works with his hands.</p>
+        <p>I run an electrical and automation contracting company, I've served as CTO of a renewable-energy and power-storage company delivering systems worldwide, and I hold a patent for a wireless monitoring system. I'm currently completing a master's in chemistry at Aalto University — because I want to understand energy storage all the way down to the cell.</p>
+        <p>That mix is rare: I can explain the science, wire the system, automate it, and tell you honestly whether it makes business sense. This page is where I share that openly — and where companies can hire me for the hard problems.</p>
+        <p class="linkedin-note">Want the full CV? It lives on <a href="https://www.linkedin.com/in/tluostar" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;text-decoration:underline">LinkedIn →</a></p>
+      </div>
+      <div class="facts">
+        <h4>At a glance</h4>
+        <ul>
+          <li>⚡ <span><b>Licensed electrician</b> — CEO of an electrical &amp; automation contractor</span></li>
+          <li>🔬 <span><b>Chemistry MSc</b> in progress, Aalto University</span></li>
+          <li>🏭 <span><b>Former CTO</b> of a renewable-energy &amp; storage company</span></li>
+          <li>🌍 <span><b>Energy systems</b> deployed internationally</span></li>
+          <li>📜 <span><b>Patent holder</b> — wireless monitoring system</span></li>
+          <li>🗣️ <span><b>Finnish · Swedish · English</b></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="magnet" id="tool">
+  <div class="wrap">
+    <div class="box">
+      <div>
+        <div class="kicker" style="color:var(--spark)">Free tool</div>
+        <h2>Is a home battery actually worth it?</h2>
+        <p>Get my <b>Battery Payback Calculator</b> — the honest one. Enter your electricity prices and system cost, and it tells you your real payback in about two minutes.</p>
+        <ul>
+          <li>Counts efficiency losses, degradation &amp; price inflation</li>
+          <li>Year-by-year projection and break-even chart</li>
+          <li>A plain-English verdict — not a salesman's number</li>
+        </ul>
+      </div>
+      <div class="form-card">
+        <h3>Send me the free calculator</h3>
+        <p class="small">Plus the occasional no-hype breakdown on home energy. Unsubscribe anytime.</p>
+        <!-- ▼▼ REPLACE: paste your MailerLite/ConvertKit embed here, OR set the form action to your provider's URL ▼▼ -->
+        <form id="signupForm" onsubmit="return handleSignup(event)">
+          <input type="text" name="name" placeholder="First name" required />
+          <input type="email" name="email" placeholder="Your email" required />
+          <button type="submit" class="btn btn-spark">Get the calculator →</button>
+        </form>
+        <!-- ▲▲ END form ▲▲ -->
+        <div id="formMsg">Thanks! Once your email tool is connected, subscribers land on your list automatically. (Demo mode — no email sent yet.)</div>
+        <p class="form-note">No spam. Your email stays private.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK WITH ME -->
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="kicker">Work with me</div>
+    <h2 class="title">Independent energy-storage expertise for companies</h2>
+    <p class="lead-p">I help organisations make the right calls on batteries, energy storage and energy automation — combining hands-on engineering, deep chemistry, and a founder's eye for what actually pays off.</p>
+
+    <div class="who">
+      <b>Who I work with:</b> battery-storage integrators, solar &amp; EPC contractors, property developers and housing companies, industrial sites, utilities, EV-charging infrastructure firms, and manufacturers who need chemistry translated into field reality.
+    </div>
+
+    <div class="svc">
+      <div class="card">
+        <h3>🔋 Energy storage strategy</h3>
+        <p>BESS feasibility, sizing and ROI modelling. Should you build it, how big, and does the business case hold up?</p>
+      </div>
+      <div class="card">
+        <h3>🔬 Battery &amp; chemistry advisory</h3>
+        <p>Cell chemistry selection (LFP vs NMC vs beyond), safety, thermal behaviour and lifetime — decoded for real projects.</p>
+      </div>
+      <div class="card">
+        <h3>🤖 Energy automation</h3>
+        <p>Spot-price optimization, smart charging and M2M integration that cuts energy cost and squeezes more from every kWh.</p>
+      </div>
+      <div class="card">
+        <h3>⚡ EV &amp; infrastructure</h3>
+        <p>EV-charging and energy-management system design, from device edge to cloud platform.</p>
+      </div>
+      <div class="card">
+        <h3>🎓 Team training</h3>
+        <p>Upskill your technicians and engineers on energy storage, battery safety and automation — practical, not academic.</p>
+      </div>
+      <div class="card">
+        <h3>🧭 Technical due diligence</h3>
+        <p>An independent second opinion on a system, supplier or project before you commit the budget.</p>
+      </div>
+    </div>
+
+    <div class="engage">
+      <div class="pill"><b>Day rate</b>Focused advisory or workshops — a fast, high-value engagement.</div>
+      <div class="pill"><b>Project</b>Scoped deliverables: a feasibility study, ROI model or design review.</div>
+      <div class="pill"><b>Retainer</b>Ongoing expert-on-call for teams shipping energy-storage work.</div>
+    </div>
+
+    <div class="work-cta">
+      <h3>Have a battery or energy problem worth solving?</h3>
+      <p>Tell me what you're working on and I'll tell you honestly whether — and how — I can help.</p>
+      <div class="cta-row" style="justify-content:center">
+        <a href="mailto:hello@batterychemist.com?subject=Working%20with%20Battery%20Chemist" class="btn btn-spark">Email me →</a>
+        <a href="https://www.linkedin.com/in/tluostar" target="_blank" rel="noopener" class="btn btn-ghost">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a href="#top" class="brand" style="color:#fff"><span style="color:var(--spark)">🔋</span> Battery Chemist</a>
+      <p class="disclaim">Independent, honest information on home energy and battery storage. Educational content and tools are simplified models — not a substitute for a tailored engineering assessment.</p>
+    </div>
+    <div style="text-align:right">
+      <a href="https://instagram.com/batterychemist" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.linkedin.com/in/tluostar" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:hello@batterychemist.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Minimal demo handler. Replace the form above with your MailerLite/ConvertKit
+  // embed (or point the form 'action' at your provider) to collect emails for real.
+  function handleSignup(e){
+    e.preventDefault();
+    document.getElementById('signupForm').style.display = 'none';
+    document.getElementById('formMsg').style.display = 'block';
+    return false;
+  }
+</script>
+</body>
+</html>
